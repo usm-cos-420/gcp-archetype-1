@@ -25,7 +25,7 @@ public class createBlogPost extends HttpServlet {
 	final String cloudDBUrl = "jdbc:postgresql:///%s?cloudSqlInstance=%s&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=%s&amp;password=%s";
 	final String createDbQuery =  "CREATE TABLE IF NOT EXISTS posts ( id SERIAL PRIMARY KEY, "
 			+ "title VARCHAR(255), author VARCHAR(255), description VARCHAR(255))";
-	final String insertPost = "INSERT INTO post "
+	final String insertPost = "INSERT INTO posts "
 			+ "(title, author, description) "
 			+ "VALUES (?, ?, ?)";
   @Override
@@ -59,9 +59,9 @@ public class createBlogPost extends HttpServlet {
 			
 			out.println("Successfully got connection");
 			Statement stmt = conn.createStatement();
-//			stmt.executeUpdate(createDbQuery);
+			stmt.executeUpdate(createDbQuery);
 
-//            stmt = conn.createStatement();
+            stmt = conn.createStatement();
             final PreparedStatement createPostStmt = conn.prepareStatement(insertPost,Statement.RETURN_GENERATED_KEYS); 
 		    createPostStmt.setString(1, post.getTitle());
 		    createPostStmt.setString(2, post.getAuthor());
